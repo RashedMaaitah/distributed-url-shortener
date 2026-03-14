@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="002-create-click-events-table" author="Rashed">
+        <createTable tableName="click_events">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="short_code" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ip_address" type="VARCHAR(45)"/>
+            <column name="user_agent" type="TEXT"/>
+            <column name="referrer" type="TEXT"/>
+            <column name="clicked_at" type="TIMESTAMP"
+                    defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="short_code"
+                                 baseTableName="click_events"
+                                 constraintName="fk_click_events_urls"
+                                 referencedColumnNames="short_code"
+                                 referencedTableName="urls"
+                                 onDelete="CASCADE"/>
+
+        <createIndex indexName="idx_click_events_short_code"
+                     tableName="click_events">
+            <column name="short_code"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

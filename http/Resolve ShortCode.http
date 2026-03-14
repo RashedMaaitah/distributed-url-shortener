@@ -1,0 +1,10 @@
+### GET request to example server
+GET http://localhost:8080/api/v1/VHe9ukb4b2
+
+###
+# curl http://localhost:8080/api/test
+#  -H "X-Forwarded-For: 192.168.1.10"
+GET http://localhost:8080/api/v1/VHe9ukb4b2
+X-Forwarded-For: 192.168.1.21
+
+###
